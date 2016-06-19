@@ -23,12 +23,10 @@ class DevelopSettingsTileService : TileService() {
     override fun onClick() {
         Log.d(TAG, "onClick")
 
-        val intent = Intent("android.settings.APPLICATION_DEVELOPMENT_SETTINGS")
+        val intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
         intent.addCategory(Intent.CATEGORY_DEFAULT)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
-
-        sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+        startActivityAndCollapse(intent)
     }
 
     override fun onTileAdded() {
