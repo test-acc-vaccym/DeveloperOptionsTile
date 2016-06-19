@@ -1,7 +1,13 @@
 # DevelopSettingsTile
 Add the develop settings tile on Android N
 
-## License
+Libraries
+---------
+
+ * Kotlin - http://kotlinlang.org
+
+License
+---------
 
 ```
 Copyright 2016 ymegane
