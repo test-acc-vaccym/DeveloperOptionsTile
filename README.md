@@ -1,5 +1,7 @@
-# DeveloperOptionsTile
+# DeveloperOptionsTile [![CircleCI](https://circleci.com/gh/ymegane/DeveloperOptionsTile/tree/master.svg?style=svg)](https://circleci.com/gh/ymegane/DeveloperOptionsTile/tree/master)
 Add the developer options tile on Android N
+
+[<img src="https://dply.me/toe08i/button/large" alt="Try it on your device via DeployGate">](https://dply.me/toe08i#install)
 
 Libraries
 ---------
