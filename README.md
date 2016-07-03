@@ -1,5 +1,5 @@
-# DevelopSettingsTile
-Add the develop settings tile on Android N
+# DeveloperOptionsTile
+Add the developer options tile on Android N
 
 Libraries
 ---------
