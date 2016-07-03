@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'deploygate'
 
 android {
     compileSdkVersion 24
@@ -39,5 +40,24 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+deploygate {
+    userName = System.getenv('DEPLOYGATE_USERNAME')
+    token = System.getenv('DEPLOYGATE_API_KEY')
+
+    apks {
+        debug {
+            // ProTip: get git hash for current commit for easier troubleshooting
+            def hash = 'git rev-parse --short HEAD'.execute([], project.rootDir).in.text.trim()
+            // set as build message
+            message = "debug build ${hash}"
+
+            sourceFile = file("./build/outputs/apk/app-debug.apk")
+            distributionKey = System.getenv('DEPLOYGATE_DISTRIBUTION_KEY')
+
+            releaseNote = "https://circleci.com/gh/ymegane/DeveloperOptionsTile/"+System.getenv('CIRCLE_BUILD_NUM')
+        }
     }
 }
