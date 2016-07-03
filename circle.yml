@@ -25,6 +25,6 @@ general:
 deployment:
   upload:
     branch: [master]
-    comamnds:
+    commands:
       - ./gradlew assembleDebug
       - ./gradlew uploadDeployGateDebug
