@@ -1,5 +1,6 @@
 package org.ymegane.android.developsettingstile
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.database.ContentObserver
 import android.os.Handler
@@ -14,7 +15,7 @@ import android.util.Log
 class DevelopSettingsTileService : TileService() {
     private val TAG = "DevelopSettingsTileService"
 
-    private var developSettingsObserver : DevelopSettingsObserver? = null;
+    private var developSettingsObserver : DevelopSettingsObserver? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         return START_STICKY
@@ -26,7 +27,12 @@ class DevelopSettingsTileService : TileService() {
         val intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
         intent.addCategory(Intent.CATEGORY_DEFAULT)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivityAndCollapse(intent)
+
+        try {
+            startActivityAndCollapse(intent)
+        } catch (e : ActivityNotFoundException) {
+            Log.w(TAG, "An activity was not found..", e)
+        }
     }
 
     override fun onTileAdded() {
@@ -52,19 +58,23 @@ class DevelopSettingsTileService : TileService() {
         super.onStopListening()
         Log.d(TAG, "onStopListening")
 
-        if (developSettingsObserver != null) {
+        developSettingsObserver?.let {
             contentResolver.unregisterContentObserver(developSettingsObserver)
             developSettingsObserver = null
         }
     }
 
     fun updateAppTile() {
-        val enabled = Settings.Global.getInt(contentResolver, Settings.Global.DEVELOPMENT_SETTINGS_ENABLED)
-        Log.d(TAG, "DEVELOPMENT_SETTINGS_ENABLED = %d".format(enabled))
+        try {
+            val enabled = Settings.Global.getInt(contentResolver, Settings.Global.DEVELOPMENT_SETTINGS_ENABLED)
+            Log.d(TAG, "DEVELOPMENT_SETTINGS_ENABLED = %d".format(enabled))
 
-        val tile = qsTile
-        tile.state = if (enabled == 1) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
-        tile.updateTile()
+            val tile = qsTile
+            tile.state = if (enabled == 1) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
+            tile.updateTile()
+        } catch (e: Settings.SettingNotFoundException) {
+            Log.w(TAG, "Not supported", e)
+        }
     }
 
     /**
