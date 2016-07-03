@@ -12,8 +12,8 @@ import android.util.Log
 /**
  * Provide for the TileService events
  */
-class DevelopSettingsTileService : TileService() {
-    private val TAG = "DevelopSettingsTileService"
+class DeveloperOptionsTileService : TileService() {
+    private val TAG = "DeveloperOptionsTileService"
 
     private var developSettingsObserver : DevelopSettingsObserver? = null
 

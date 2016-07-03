@@ -6,7 +6,7 @@ android {
     buildToolsVersion "24.0.0"
 
     defaultConfig {
-        applicationId "org.ymegnae.android.developsettingstile"
+        applicationId "org.ymegnae.android.developeroptionstile"
         minSdkVersion 24
         targetSdkVersion 24
         versionCode 1

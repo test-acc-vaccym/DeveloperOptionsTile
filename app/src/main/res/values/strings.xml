@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">DevelopSettingsTile</string>
-    <string name="tile_label">DevelopSettings</string>
+    <string name="app_name">DeveloperOptionsTile</string>
+    <string name="tile_label">Developer Options</string>
 </resources>

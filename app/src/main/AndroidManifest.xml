@@ -8,9 +8,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name="org.ymegane.android.developsettingstile.DevelopSettingsTileService"
+            android:name="org.ymegane.android.developsettingstile.DeveloperOptionsTileService"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_adb_black_24dp"
             android:label="@string/tile_label">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
