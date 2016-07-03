@@ -14,8 +14,17 @@ dependencies:
     - ./gradlew dependencies
 test:
   override:
-    - ./gradlew clean assembleDebug
+    - echo "Nothing to do here"
+  post:
+    - ./gradlew compileDebugSources
 
 general:
   artifacts:
     - ./app/build/outputs/apk/
+
+deployment:
+  upload:
+    branch: [master]
+    comamnds:
+      - ./gradlew assembleDebug
+      - ./gradlew uploadDeployGateDebug
