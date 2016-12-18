@@ -1,4 +1,4 @@
-# DeveloperOptionsTile [![CircleCI](https://circleci.com/gh/ymegane/DeveloperOptionsTile/tree/master.svg?style=svg)](https://circleci.com/gh/ymegane/DeveloperOptionsTile/tree/master)
+# DeveloperOptionsTile [![CircleCI](https://circleci.com/gh/ymegane/DeveloperOptionsTile/tree/master.svg?style=svg)](https://circleci.com/gh/ymegane/DeveloperOptionsTile/tree/master) [![Build Status](https://www.bitrise.io/app/a942c9422edc82de.svg?token=7jAAmyobDX76NWP0Uh5vZw&branch=master)](https://www.bitrise.io/app/a942c9422edc82de)
 Add the developer options tile on Android N
 
 [<img src="https://dply.me/toe08i/button/large" alt="Try it on your device via DeployGate">](https://dply.me/toe08i#install)
