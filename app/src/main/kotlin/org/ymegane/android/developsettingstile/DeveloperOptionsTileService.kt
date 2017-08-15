@@ -13,9 +13,7 @@ import android.util.Log
  * Provide for the TileService events
  */
 class DeveloperOptionsTileService : TileService() {
-    private val TAG = "DeveloperOptionsTileService"
-
-    private var developSettingsObserver : DevelopSettingsObserver? = null
+    private val developSettingsObserver by lazy { DevelopSettingsObserver(Handler()) }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         return START_STICKY
@@ -24,9 +22,10 @@ class DeveloperOptionsTileService : TileService() {
     override fun onClick() {
         Log.d(TAG, "onClick")
 
-        val intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
-        intent.addCategory(Intent.CATEGORY_DEFAULT)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        val intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS).apply {
+            addCategory(Intent.CATEGORY_DEFAULT)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
 
         try {
             startActivityAndCollapse(intent)
@@ -48,8 +47,8 @@ class DeveloperOptionsTileService : TileService() {
     override fun onStartListening() {
         super.onStartListening()
         Log.d(TAG, "onStartListening")
-        developSettingsObserver = DevelopSettingsObserver(Handler())
         contentResolver.notifyChange(Settings.Global.getUriFor(Settings.Global.DEVELOPMENT_SETTINGS_ENABLED), developSettingsObserver)
+        contentResolver.notifyChange(Settings.Global.getUriFor(Settings.Global.ADB_ENABLED), developSettingsObserver)
 
         updateAppTile()
     }
@@ -58,22 +57,27 @@ class DeveloperOptionsTileService : TileService() {
         super.onStopListening()
         Log.d(TAG, "onStopListening")
 
-        developSettingsObserver?.let {
-            contentResolver.unregisterContentObserver(developSettingsObserver)
-            developSettingsObserver = null
+        contentResolver.unregisterContentObserver(developSettingsObserver)
+    }
+
+    private fun updateAppTile() {
+        try {
+            qsTile?.apply {
+                state = tileState()
+                updateTile()
+            }
+        } catch (e: Settings.SettingNotFoundException) {
+            Log.w(TAG, "Not supported", e)
         }
     }
 
-    fun updateAppTile() {
-        try {
-            val enabled = Settings.Global.getInt(contentResolver, Settings.Global.DEVELOPMENT_SETTINGS_ENABLED)
-            Log.d(TAG, "DEVELOPMENT_SETTINGS_ENABLED = %d".format(enabled))
+    private fun tileState(): Int {
+        val enabled = Settings.Global.getInt(contentResolver, Settings.Global.DEVELOPMENT_SETTINGS_ENABLED)
+        Log.d(TAG, "DEVELOPMENT_SETTINGS_ENABLED = $enabled")
 
-            val tile = qsTile
-            tile.state = if (enabled == 1) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
-            tile.updateTile()
-        } catch (e: Settings.SettingNotFoundException) {
-            Log.w(TAG, "Not supported", e)
+        return when {
+            enabled == 1 -> Tile.STATE_ACTIVE
+            else -> Tile.STATE_INACTIVE
         }
     }
 
@@ -85,5 +89,9 @@ class DeveloperOptionsTileService : TileService() {
             super.onChange(selfChange)
             updateAppTile()
         }
+    }
+
+    companion object {
+        private val TAG = "DeveloperOptionsTileService"
     }
 }
