@@ -44,7 +44,6 @@ deploygate {
             // set as build message
             message = "debug build ${hash}"
 
-            sourceFile = file("./build/outputs/apk/app-debug.apk")
             distributionKey = System.getenv('DEPLOYGATE_DISTRIBUTION_KEY')
 
             releaseNote = "https://circleci.com/gh/ymegane/DeveloperOptionsTile/"+System.getenv('CIRCLE_BUILD_NUM')
