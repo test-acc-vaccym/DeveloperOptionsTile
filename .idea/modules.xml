@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DevelopSettingsTile.iml" filepath="$PROJECT_DIR$/DevelopSettingsTile.iml" />
       <module fileurl="file://$PROJECT_DIR$/DeveloperOptionsTile.iml" filepath="$PROJECT_DIR$/DeveloperOptionsTile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DeveloperOptionsTile.iml" filepath="$PROJECT_DIR$/DeveloperOptionsTile.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
