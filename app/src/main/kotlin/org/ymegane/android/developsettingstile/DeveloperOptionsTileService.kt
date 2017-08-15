@@ -75,9 +75,13 @@ class DeveloperOptionsTileService : TileService() {
         val enabled = Settings.Global.getInt(contentResolver, Settings.Global.DEVELOPMENT_SETTINGS_ENABLED)
         Log.d(TAG, "DEVELOPMENT_SETTINGS_ENABLED = $enabled")
 
+        val adb = Settings.Global.getInt(contentResolver, Settings.Global.ADB_ENABLED, 0)
+        Log.d(TAG, "ADB_ENABLED = $adb")
+
         return when {
-            enabled == 1 -> Tile.STATE_ACTIVE
-            else -> Tile.STATE_INACTIVE
+            enabled == 1 && adb == 1 -> Tile.STATE_ACTIVE
+            enabled == 1 -> Tile.STATE_INACTIVE
+            else -> Tile.STATE_UNAVAILABLE
         }
     }
 
