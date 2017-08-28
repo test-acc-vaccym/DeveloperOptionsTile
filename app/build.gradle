@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "org.ymegnae.android.developeroptionstile"
         minSdkVersion 24
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
