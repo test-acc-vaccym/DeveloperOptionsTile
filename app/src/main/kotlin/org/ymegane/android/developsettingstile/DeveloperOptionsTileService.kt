@@ -47,8 +47,11 @@ class DeveloperOptionsTileService : TileService() {
     override fun onStartListening() {
         super.onStartListening()
         Log.d(TAG, "onStartListening")
-        contentResolver.notifyChange(Settings.Global.getUriFor(Settings.Global.DEVELOPMENT_SETTINGS_ENABLED), developSettingsObserver)
-        contentResolver.notifyChange(Settings.Global.getUriFor(Settings.Global.ADB_ENABLED), developSettingsObserver)
+
+        contentResolver.apply {
+            notifyChange(Settings.Global.getUriFor(Settings.Global.DEVELOPMENT_SETTINGS_ENABLED), developSettingsObserver)
+            notifyChange(Settings.Global.getUriFor(Settings.Global.ADB_ENABLED), developSettingsObserver)
+        }
 
         updateAppTile()
     }
