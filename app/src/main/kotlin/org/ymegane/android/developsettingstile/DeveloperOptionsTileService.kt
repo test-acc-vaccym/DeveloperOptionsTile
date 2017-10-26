@@ -83,8 +83,7 @@ class DeveloperOptionsTileService : TileService() {
 
         return when {
             enabled == 1 && adb == 1 -> Tile.STATE_ACTIVE
-            enabled == 1 -> Tile.STATE_INACTIVE
-            else -> Tile.STATE_UNAVAILABLE
+            else -> Tile.STATE_INACTIVE
         }
     }
 
