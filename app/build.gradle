@@ -3,13 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'deploygate'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 27
 
     defaultConfig {
         applicationId "org.ymegnae.android.developeroptionstile"
         minSdkVersion 24
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
@@ -28,7 +27,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
