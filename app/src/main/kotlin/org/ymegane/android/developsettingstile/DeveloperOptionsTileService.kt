@@ -22,14 +22,14 @@ class DeveloperOptionsTileService : TileService() {
     override fun onClick() {
         Log.d(TAG, "onClick")
 
-        val intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS).apply {
-            addCategory(Intent.CATEGORY_DEFAULT)
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        val intent = Intent(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS).also {
+            it.addCategory(Intent.CATEGORY_DEFAULT)
+            it.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
 
         try {
             startActivityAndCollapse(intent)
-        } catch (e : ActivityNotFoundException) {
+        } catch (e: ActivityNotFoundException) {
             Log.w(TAG, "An activity was not found..", e)
         }
     }
@@ -48,9 +48,9 @@ class DeveloperOptionsTileService : TileService() {
         super.onStartListening()
         Log.d(TAG, "onStartListening")
 
-        contentResolver.apply {
-            notifyChange(Settings.Global.getUriFor(Settings.Global.DEVELOPMENT_SETTINGS_ENABLED), developSettingsObserver)
-            notifyChange(Settings.Global.getUriFor(Settings.Global.ADB_ENABLED), developSettingsObserver)
+        contentResolver.let {
+            it.notifyChange(Settings.Global.getUriFor(Settings.Global.DEVELOPMENT_SETTINGS_ENABLED), developSettingsObserver)
+            it.notifyChange(Settings.Global.getUriFor(Settings.Global.ADB_ENABLED), developSettingsObserver)
         }
 
         updateAppTile()
@@ -65,9 +65,9 @@ class DeveloperOptionsTileService : TileService() {
 
     private fun updateAppTile() {
         try {
-            qsTile?.apply {
-                state = tileState()
-                updateTile()
+            qsTile?.let {
+                it.state = tileState()
+                it.updateTile()
             }
         } catch (e: Settings.SettingNotFoundException) {
             Log.w(TAG, "Not supported", e)
@@ -98,6 +98,6 @@ class DeveloperOptionsTileService : TileService() {
     }
 
     companion object {
-        private val TAG = "DeveloperOptionsTileService"
+        private const val TAG = "DeveloperOptionsTileService"
     }
 }
